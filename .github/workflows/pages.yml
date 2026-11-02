@@ -1,0 +1,48 @@
+name: GitHub Pages — AWE UI Preview
+
+on:
+  push:
+    branches:
+      - phase-4/github-pages-ui
+    paths:
+      - "pages/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate standalone UI
+        run: |
+          test -s pages/index.html
+          test -s pages/app.css
+          test -s pages/app.js
+          node --check pages/app.js
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
