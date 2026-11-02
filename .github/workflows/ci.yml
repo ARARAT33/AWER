@@ -21,5 +21,6 @@ jobs:
       - run: node --check api/managed/vercel-projects.js
       - run: node --check api/managed/supabase-projects.js
       - run: node --check api/managed/neon-projects.js
+      - run: node --check api/managed/control.js
       - run: node --check src/main.js
       - run: npm run build
