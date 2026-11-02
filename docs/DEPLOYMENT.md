@@ -18,16 +18,16 @@
 
 ## GitHub repository management
 
-Set `GITHUB_TOKEN` to a fine-grained token for the intended GitHub owner. Grant repository metadata read and repository administration/create permissions as needed by GitHub's current token model. The dashboard lists repositories and creates new repositories as private by default; public creation is not exposed in the UI.
+Set `GITHUB_TOKEN` to a fine-grained token for the intended GitHub owner. Grant repository metadata read and repository administration/create permissions as needed by GitHub's current token model. The dashboard lists repositories, creates new private repositories by default, and allows deletion only for repositories owned by the authenticated GitHub account after typed-name confirmation; public creation is not exposed in the UI.
 
 ## Vercel project management
 
-Set `VERCEL_TOKEN` with permission to read and create projects in the selected scope. For a team, set `VERCEL_TEAM_ID`. Project creation is a real Vercel API request; it does not automatically connect a Git repository or deploy source code.
+Set `VERCEL_TOKEN` with permission to read and create projects in the selected scope. For a team, set `VERCEL_TEAM_ID`. Project creation and typed-name-confirmation deletion are real Vercel API requests. Creation does not automatically connect a Git repository or deploy source code.
 
 ## Supabase and Neon project management
 
-- Set `SUPABASE_ACCESS_TOKEN` with permission to list and create projects. The form requires your Supabase organization ID, a supported region slug, and a new database password (12+ characters). The dashboard does not retain the database password.
-- Set `NEON_API_KEY` with permission to list and create projects. The form requires a valid Neon region ID; an organization ID can optionally scope creation.
+- Set `SUPABASE_ACCESS_TOKEN` with permission to list and create projects. The form requires your Supabase organization ID, a supported region slug, and a new database password (12+ characters). The dashboard does not retain the database password. Project deletion is available only after typing the exact project name.
+- Set `NEON_API_KEY` with permission to list and create projects. The form requires a valid Neon region ID; an organization ID can optionally scope creation. Project deletion requires typing the exact project name.
 
 ## Session security
 
