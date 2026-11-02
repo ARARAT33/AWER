@@ -19,4 +19,7 @@ jobs:
       - run: node --check mcp-server/index.js
       - run: node --check api/managed/github-repositories.js
       - run: node --check api/managed/vercel-projects.js
+      - run: node --check api/managed/supabase-projects.js
+      - run: node --check api/managed/neon-projects.js
+      - run: node --check src/main.js
       - run: npm run build
