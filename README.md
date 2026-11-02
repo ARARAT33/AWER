@@ -11,6 +11,8 @@ Private, single-owner infrastructure control panel for the verified Google accou
 - Real Vercel project listing and project creation.
 - Real Supabase project listing and creation (requires organization, region and a new database password).
 - Real Neon project listing and creation.
+- On-demand operations workspace: GitHub Actions workflow discovery and dispatch for repositories owned by the connected GitHub account; recent Vercel deployments; Cloudflare zone inventory; Render service inventory and guarded service restart.
+- Low-traffic behavior: no background polling, operational inventories load only when opened, and successful GET responses are reused in the browser for 15 seconds.
 - Login notification email sent through the owner's Google Gmail API access token after successful sign-in. No third-party email key is required; Gmail API and the Gmail send OAuth scope must be enabled/consented in Google Cloud.
 - Same-origin protection on state-changing browser API requests.
 - Local stdio MCP server from Phase 2; it currently exposes read-only provider inspection tools.
