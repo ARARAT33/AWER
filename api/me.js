@@ -1,1 +1,2 @@
-import {requireOwner} from "./_lib/security.js";export default function handler(req,res){if(req.method!=="GET")return res.status(405).json({error:"Method not allowed"});const s=requireOwner(req,res);if(!s)return;return res.status(200).json({authenticated:true,email:s.email});}
+import {requireOwner} from "./_lib/security.js";
+export default function handler(req,res){if(req.method!=="GET")return res.status(405).json({error:"Method not allowed"});const s=requireOwner(req,res);if(!s)return;res.setHeader("Cache-Control","no-store");return res.status(200).json({authenticated:true,email:s.email,loginNotificationsConfigured:Boolean(process.env.RESEND_API_KEY&&process.env.RESEND_FROM_EMAIL)});}
