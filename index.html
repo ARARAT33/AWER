@@ -1,2 +1,21 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101522"><meta name="description" content="AWE Resource Control Center"><title>AWE Resource Control Center</title></head><body><div id="app">Loading AWE Control Center…</div><script type="module" src="/src/main.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101522">
+  <meta name="description" content="AWE Resource Control Center">
+  <title>AWE Resource Control Center</title>
+  <script>
+    // GitHub Pages project sites are hosted below /REPOSITORY/, not at the domain root.
+    // Serve the safe, standalone UI preview there; keep the authenticated app on Vercel.
+    if (location.hostname.endsWith(".github.io")) {
+      location.replace(new URL("./pages/", location.href).href);
+    }
+  </script>
+</head>
+<body>
+  <div id="app">Loading AWE Control Center…</div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
