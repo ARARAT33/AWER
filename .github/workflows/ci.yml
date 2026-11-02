@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [main]
+    branches: [main, "phase-2/**"]
   pull_request:
     branches: [main]
 permissions:
@@ -16,4 +16,5 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm test
+      - run: node --check mcp-server/index.js
       - run: npm run build
