@@ -1,1 +1,44 @@
-# GitHub Pages — static AWE interface preview\n\nThis folder is a standalone, dependency-free interface preview for the AWE Resource Control Center.\n\n## What works in this preview\n\n- Responsive navigation between Overview, Projects, Operations, Providers, Activity, Security and Settings.\n- Local resource search, provider/type filters and pagination.\n- Provider detail dialogs and operation information panels.\n- Local preference toggles and preview notifications.\n- Export of the illustrative activity list to CSV.\n- Mobile navigation and responsive layouts.\n\n## What does not connect\n\nThis is intentionally a **static UI preview**, not the authenticated control plane.\n\n- No provider API calls are made.\n- No login or session is created.\n- No secrets, OAuth tokens or API keys are included.\n- Sample resource names, statuses, metrics and activity are illustrative.\n- Buttons that represent provider mutations explain the preview boundary instead of changing real services.\n\nUse the private Vercel application and its server-side API routes for real provider operations. Never move provider credentials into this Pages site.\n\n## GitHub Actions deployment\n\nWorkflow: `.github/workflows/pages.yml`\n\nIt validates the standalone files, uploads only the `pages/` directory and deploys it with the official GitHub Pages Actions.\n\nTo enable deployment:\n\n1. Open repository **Settings → Pages**.\n2. Set **Build and deployment → Source** to **GitHub Actions**.\n3. Ensure the repository/account plan supports GitHub Pages for a private repository. This repository is currently private; GitHub Free generally requires a public repository for Pages. Do not change repository visibility without the owner's explicit decision.\n4. Run the **GitHub Pages — AWE UI Preview** workflow or push a change to `pages/` on `phase-4/github-pages-ui`.\n5. Open the URL shown in the workflow's deployment environment.\n\nIf the private-repository plan does not include Pages, the workflow can be retained but GitHub will reject the deployment until Pages eligibility is available or the owner explicitly chooses a public hosting arrangement.\n\n## Traffic-conscious design\n\nThe preview is static HTML, CSS and JavaScript. It has no polling, analytics, external fonts, images, third-party scripts, API requests or runtime package dependencies.
+# GitHub Pages — static AWE interface preview
+
+This folder is a standalone, dependency-free interface preview for the AWE Resource Control Center.
+
+## What works in this preview
+
+- Responsive navigation between Overview, Projects, Operations, Providers, Activity, Security and Settings.
+- Local resource search, provider/type filters and pagination.
+- Provider detail dialogs and operation information panels.
+- Local preference toggles and preview notifications.
+- Export of the illustrative activity list to CSV.
+- Mobile navigation and responsive layouts.
+
+## What does not connect
+
+This is intentionally a **static UI preview**, not the authenticated control plane.
+
+- No provider API calls are made.
+- No login or session is created.
+- No secrets, OAuth tokens or API keys are included.
+- Sample resource names, statuses, metrics and activity are illustrative.
+- Buttons that represent provider mutations explain the preview boundary instead of changing real services.
+
+Use the private Vercel application and its server-side API routes for real provider operations. Never move provider credentials into this Pages site.
+
+## GitHub Actions deployment
+
+Workflow: `.github/workflows/pages.yml`
+
+It validates the standalone files, uploads only the `pages/` directory and deploys it with the official GitHub Pages Actions.
+
+To enable deployment:
+
+1. Open repository **Settings → Pages**.
+2. Set **Build and deployment → Source** to **GitHub Actions**.
+3. GitHub Pages is available for public repositories on GitHub Free. Private repositories require GitHub Pro, Team, or Enterprise. This repository is currently private; do not change repository visibility without the owner's explicit decision.
+4. Run the **GitHub Pages — AWE UI Preview** workflow or push a change to `pages/` on `phase-4/github-pages-ui`.
+5. Open the URL shown in the workflow's deployment environment.
+
+GitHub Pages sites are publicly accessible when published. The Pages artifact contains only the static UI preview, not backend source or secrets.
+
+## Traffic-conscious design
+
+The preview is static HTML, CSS and JavaScript. It has no polling, analytics, external fonts, images, third-party scripts, API requests or runtime package dependencies.
