@@ -26,11 +26,11 @@ Set values in Vercel Project Settings → Environment Variables. Never commit cr
 - `GOOGLE_CLIENT_SECRET` — required for Google OAuth code exchange.
 - `GOOGLE_REDIRECT_URI` — exact deployed callback URL.
 - `SESSION_SECRET` — random secret of at least 32 bytes.
-- `GITHUB_TOKEN` — token with repository read/create permissions for the intended owner account.
+- `GITHUB_TOKEN` — token for the intended owner account with Metadata read, Contents read/write, Administration write for repository creation where required, and Actions read/write for workflow listing, dispatch and failed-job retry.
 - `VERCEL_TOKEN` and optionally `VERCEL_TEAM_ID` — project read/create access in the intended Vercel scope.
 - `SUPABASE_ACCESS_TOKEN` — project read/create access.
 - `NEON_API_KEY` — project read/create access.
-- `CLOUDFLARE_API_TOKEN` and `RENDER_API_KEY` — currently used for connection checks.
+- `CLOUDFLARE_API_TOKEN` — account/user token with Zone Read permission for zone inventory. `RENDER_API_KEY` — service read and restart permission for Render service inventory/restart.
 
 ## Deploy and configure
 
