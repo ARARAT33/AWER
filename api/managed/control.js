@@ -25,10 +25,19 @@ export default async function handler(req,res){
     const repo=String(req.method==="GET"?req.query?.repo:body.repo||"").trim();
     const owned=await githubOwnedRepo(repo);if(owned.error)return res.status(owned.status||400).json({error:owned.error});
     if(req.method==="GET"){
-      const r=await fetch(GITHUB+"/repos/"+repo+"/actions/workflows?per_page=50",{headers:ghHeaders()});
+      const [r,runsR]=await Promise.all([fetch(GITHUB+"/repos/"+repo+"/actions/workflows?per_page=50",{headers:ghHeaders()}),fetch(GITHUB+"/repos/"+repo+"/actions/runs?per_page=10",{headers:ghHeaders()})]);
       if(!r.ok)return res.status(r.status>=500?502:r.status).json(await fail(r,"GitHub"));
-      const b=await json(r);
-      return res.status(200).json({provider:"github",repo,workflows:(b.workflows||[]).map(w=>({id:w.id,name:w.name,path:w.path,state:w.state,badgeUrl:w.badge_url}))});
+      if(!runsR.ok)return res.status(runsR.status>=500?502:runsR.status).json(await fail(runsR,"GitHub"));
+      const [b,runs]=await Promise.all([json(r),json(runsR)]);
+      return res.status(200).json({provider:"github",repo,workflows:(b.workflows||[]).map(w=>({id:w.id,name:w.name,path:w.path,state:w.state,badgeUrl:w.badge_url})),runs:(runs.workflow_runs||[]).map(x=>({id:x.id,name:x.name,displayTitle:x.display_title,status:x.status,conclusion:x.conclusion,branch:x.head_branch,createdAt:x.created_at,htmlUrl:x.html_url}))});
+    }
+    if(body.action==="rerun_failed"){
+      const runId=String(body.runId||"").trim();if(!/^\d{1,20}$/.test(runId))return res.status(400).json({error:"Invalid workflow run ID."});
+      const check=await fetch(GITHUB+"/repos/"+repo+"/actions/runs/"+runId,{headers:ghHeaders()});if(!check.ok)return res.status(check.status>=500?502:check.status).json(await fail(check,"GitHub"));
+      const run=await json(check);if(run.repository?.full_name?.toLowerCase()!==repo.toLowerCase())return res.status(403).json({error:"Workflow run does not belong to the selected repository."});
+      if(run.status!=="completed"||run.conclusion!=="failure")return res.status(409).json({error:"Only completed failed runs can be retried."});
+      const retry=await fetch(GITHUB+"/repos/"+repo+"/actions/runs/"+runId+"/rerun-failed-jobs",{method:"POST",headers:ghHeaders()});if(!retry.ok)return res.status(retry.status>=500?502:retry.status).json(await fail(retry,"GitHub"));
+      return res.status(202).json({retried:true,runId,message:"GitHub accepted the retry of failed jobs."});
     }
     const workflow=String(body.workflow||"").trim(),ref=String(body.ref||"").trim();
     if(!/^(\d{1,20}|[A-Za-z0-9_./-]{1,150})$/.test(workflow)||!validGitRef(ref))return res.status(400).json({error:"Choose a valid workflow and branch/tag ref."});
