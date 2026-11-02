@@ -5,7 +5,7 @@
 - Eight-hour HMAC-SHA256 signed Secure, HttpOnly, SameSite=Lax session cookie.
 - Same-origin validation for browser state-changing project-creation endpoints.
 - Provider credentials are read only by server functions and never returned to the browser.
-- GitHub, Vercel, Supabase and Neon project creation requests are sent directly to their provider APIs; provider permissions remain the effective authorization boundary.
+- GitHub, Vercel, Supabase and Neon project creation/deletion requests are sent directly to their provider APIs; provider permissions remain the effective authorization boundary. Deletion requires same-origin POST semantics and the exact resource name as a confirmation value; GitHub deletion is limited to repositories owned by the authenticated GitHub account.
 - Login email notifications are optional and require a verified Resend sender plus private API key.
 - CSP, frame denial, nosniff, strict referrer policy, no-store resource responses, and provider timeouts where configured.
 - No secrets in Git, browser storage, or client build variables.
