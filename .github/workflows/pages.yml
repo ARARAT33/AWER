@@ -6,6 +6,7 @@ on:
       - phase-4/github-pages-ui
     paths:
       - "pages/**"
+      - "index.html"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
