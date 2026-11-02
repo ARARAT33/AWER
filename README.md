@@ -1,21 +1,36 @@
 # AWE Resource Control Center
 
-Owner-only infrastructure control plane for inspecting connected AWE providers.
+Private, single-owner infrastructure control panel for the verified Google account `araratavetisyan777999@gmail.com`.
 
-## Phase 1
-- Google OIDC sign-in with verified-email allowlist and PKCE.
-- Signed HttpOnly sessions; provider tokens remain server-side.
-- Read-only checks for GitHub, Cloudflare, Vercel, Render, Supabase and Neon.
-- Honest states: connected, not configured, invalid credentials, provider error, unreachable.
-- No fabricated quotas, usage totals, or resource pooling.
+## Current control-center capabilities
 
-## Phase 2 (this branch)
-- Local stdio MCP server with provider catalog and read-only connection-check tools.
-- Uses the same provider adapters as the dashboard.
-- Google OAuth Client ID is configured as a public default; the client secret and redirect URI must be set privately.
-- See [Phase 2 documentation](docs/PHASE-2.md) and [MCP server guide](mcp-server/README.md).
+- Google OIDC Authorization Code + PKCE sign-in; the callback and signed-session validator accept only the exact owner email.
+- Signed HttpOnly/Secure/SameSite session cookie; provider credentials remain server-side.
+- Live connection checks for GitHub, Cloudflare, Vercel, Render, Supabase and Neon.
+- Real GitHub repository listing and repository creation.
+- Real Vercel project listing and project creation.
+- Same-origin protection on state-changing browser API requests.
+- Optional login email alerts through Resend. Configure a verified sender and API key to activate delivery.
+- Local stdio MCP server from Phase 2; it currently exposes read-only provider inspection tools.
+- GitHub Actions checks tests, MCP syntax, management API syntax, and frontend production build.
 
-## Deploy
-Import this repository into Vercel as a Vite project. Set environment variables from `.env.example` in Vercel. Register `https://YOUR_DOMAIN/api/auth/callback` as the Google OAuth redirect URI and set `GOOGLE_REDIRECT_URI` to exactly the same value. See `docs/DEPLOYMENT.md`.
+## Required private environment
 
-Provider API credentials must be added privately in Vercel environment settings. Never commit secrets. Phase 2 MCP server runs locally over stdio; it does not expose a public endpoint or perform infrastructure mutations.
+Set values in Vercel Project Settings → Environment Variables. Never commit credentials.
+
+- `GOOGLE_CLIENT_ID` — prefilled with the supplied public client ID.
+- `GOOGLE_CLIENT_SECRET` — required for Google OAuth code exchange.
+- `GOOGLE_REDIRECT_URI` — exact deployed callback URL.
+- `SESSION_SECRET` — random secret of at least 32 bytes.
+- `GITHUB_TOKEN` — token with repository read/create permissions for the intended owner account.
+- `VERCEL_TOKEN` and optionally `VERCEL_TEAM_ID` — project read/create access in the intended Vercel scope.
+- `RESEND_API_KEY` and `RESEND_FROM_EMAIL` — verified Resend sender for login notifications.
+- Other provider tokens are used for connection checks; their write-management adapters are not yet enabled.
+
+## Deploy and configure
+
+See [deployment guide](docs/DEPLOYMENT.md) and [security notes](docs/SECURITY.md).
+
+## Important boundaries
+
+The dashboard executes real GitHub and Vercel API operations when credentials and permissions are configured. It does not pretend unsupported operations succeeded. Other provider write operations, full billing/usage aggregation, infrastructure deletion, and remote MCP hosting are not claimed as implemented. Destructive operations should require explicit per-action confirmation and audit logging before being added.
