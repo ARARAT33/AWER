@@ -11,9 +11,13 @@ document.querySelector("#logout").addEventListener("click",logout);
 document.querySelectorAll("[data-view]").forEach(a=>a.addEventListener("click",e=>{e.preventDefault();showView(a.dataset.view);}));
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.go)));
 document.querySelector("#github-create").addEventListener("submit",createGithub);
-document.querySelector("#vercel-create").addEventListener("submit",createVercel);\ndocument.querySelector("#supabase-create").addEventListener("submit",createSupabase);\ndocument.querySelector("#neon-create").addEventListener("submit",createNeon);
+document.querySelector("#vercel-create").addEventListener("submit",createVercel);
+document.querySelector("#supabase-create").addEventListener("submit",createSupabase);
+document.querySelector("#neon-create").addEventListener("submit",createNeon);
 document.querySelector("#reload-github").addEventListener("click",loadGithub);
-document.querySelector("#reload-vercel").addEventListener("click",loadVercel);\ndocument.querySelector("#reload-supabase").addEventListener("click",loadSupabase);\ndocument.querySelector("#reload-neon").addEventListener("click",loadNeon);
+document.querySelector("#reload-vercel").addEventListener("click",loadVercel);
+document.querySelector("#reload-supabase").addEventListener("click",loadSupabase);
+document.querySelector("#reload-neon").addEventListener("click",loadNeon);
 document.querySelector("#refresh-providers").addEventListener("click",loadProviders);
 loadOverview();loadGithub();loadVercel();loadSupabase();loadNeon();loadProviders();}
 function showView(name){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id==="view-"+name));document.querySelectorAll("[data-view]").forEach(a=>a.classList.toggle("active",a.dataset.view===name));if(name==="projects"){loadGithub();loadVercel();}}
