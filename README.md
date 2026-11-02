@@ -39,3 +39,8 @@ See [deployment guide](docs/DEPLOYMENT.md) and [security notes](docs/SECURITY.md
 ## Important boundaries
 
 The dashboard executes real GitHub repository, Vercel project, Supabase project and Neon project listing, creation and typed-confirmation deletion requests when credentials and permissions are configured. It does not pretend unsupported operations succeeded. Cloudflare write operations, Vercel deployment mutation/log streaming, resource editing, full billing/usage aggregation, database branch/backup/SQL administration, and remote MCP hosting are not claimed as implemented. The operations page is intentionally read-on-demand; it does not poll providers in the background. Vercel project creation does not automatically connect a Git repository or deploy source code.
+
+
+## Static GitHub Pages interface preview
+
+A separate, dependency-free UI preview lives in `pages/`. It includes Overview, Projects, Operations, Providers, Activity, Security and Settings views with local navigation, filters, dialogs and sample data. It makes no provider API calls and contains no credentials; provider mutation buttons are intentionally informational only. See [GitHub Pages guide](docs/GITHUB-PAGES.md). The deployment workflow is [pages.yml](.github/workflows/pages.yml). The repository is private, so Pages eligibility depends on the GitHub plan; repository visibility must not be changed without the owner's explicit decision.
