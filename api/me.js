@@ -1,1 +1,2 @@
-import {requireOwner} from "./_lib/security.js";export default function handler(req,res){if(req.method!=="GET")return res.status(405).json({error:"Method not allowed"});const s=requireOwner(req,res);if(!s)return;return res.status(200).json({authenticated:true,email:s.email});}
+import {requireOwner} from "./_lib/security.js";
+export default function handler(req,res){if(req.method!=="GET")return res.status(405).json({error:"Method not allowed"});const s=requireOwner(req,res);if(!s)return;res.setHeader("Cache-Control","no-store");return res.status(200).json({authenticated:true,email:s.email,loginNotificationsConfigured:Boolean(process.env.GOOGLE_CLIENT_SECRET&&process.env.GOOGLE_REDIRECT_URI),loginNotificationsProvider:"Google Gmail API"});}

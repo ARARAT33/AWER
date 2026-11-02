@@ -1,6 +1,6 @@
 {
   "name": "awe-resource-control-center",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -11,7 +11,12 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "node --test",
-    "check": "npm test && npm run build"
+    "check": "npm test && npm run build",
+    "mcp": "node mcp-server/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "vite": "^6.4.1"

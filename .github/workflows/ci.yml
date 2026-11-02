@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [main]
+    branches: [main, "phase-2/**", "phase-3/**"]
   pull_request:
     branches: [main]
 permissions:
@@ -16,4 +16,11 @@ jobs:
           node-version: 20
       - run: npm install
       - run: npm test
+      - run: node --check mcp-server/index.js
+      - run: node --check api/managed/github-repositories.js
+      - run: node --check api/managed/vercel-projects.js
+      - run: node --check api/managed/supabase-projects.js
+      - run: node --check api/managed/neon-projects.js
+      - run: node --check api/managed/control.js
+      - run: node --check src/main.js
       - run: npm run build
