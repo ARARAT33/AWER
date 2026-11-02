@@ -22,7 +22,7 @@ Set `GITHUB_TOKEN` to a fine-grained token for the intended GitHub owner. Grant 
 
 Set `VERCEL_TOKEN` with permission to read and create projects in the selected scope. For a team, set `VERCEL_TEAM_ID`. Project creation is a real Vercel API request; it does not automatically connect a Git repository or deploy source code.
 
-## Login email notifications
+## Supabase and Neon project management\n\n- Set `SUPABASE_ACCESS_TOKEN` with permission to list and create projects. The form requires your Supabase organization ID, a supported region slug, and a new database password (12+ characters). The dashboard does not retain the database password.\n- Set `NEON_API_KEY` with permission to list and create projects. The form requires a valid Neon region ID; an organization ID can optionally scope creation.\n\n## Login email notifications
 
 Set `RESEND_API_KEY` and `RESEND_FROM_EMAIL`. The sender address/domain must be verified in Resend. A notification is sent to the owner address after a successful Google sign-in. If these values are missing or invalid, sign-in still succeeds but email delivery is not active/successful.
 
