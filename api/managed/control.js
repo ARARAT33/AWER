@@ -5,7 +5,7 @@ const VERCEL="https://api.vercel.com";
 const CLOUDFLARE="https://api.cloudflare.com/client/v4";
 const RENDER="https://api.render.com/v1";
 
-export function validRepoSlug(value){return /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(String(value||""));}
+export function validRepoSlug(value){const parts=String(value||"").split("/");return parts.length===2&&parts.every(p=>/^[A-Za-z0-9_.-]+$/.test(p)&&p!=="."&&p!=="..");}
 export function validGitRef(value){return /^[A-Za-z0-9_./-]{1,100}$/.test(String(value||""))&&!String(value).includes("..");}
 function ghHeaders(){return {Authorization:"Bearer "+process.env.GITHUB_TOKEN,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Content-Type":"application/json"};}
 function bearer(name){return {Authorization:"Bearer "+process.env[name],Accept:"application/json","Content-Type":"application/json"};}
