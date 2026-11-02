@@ -36,4 +36,4 @@ See [deployment guide](docs/DEPLOYMENT.md) and [security notes](docs/SECURITY.md
 
 ## Important boundaries
 
-The dashboard executes real GitHub, Vercel, Supabase and Neon project creation requests when credentials and permissions are configured. It does not pretend unsupported operations succeeded. Cloudflare and Render write operations, resource deletion, full billing/usage aggregation, and remote MCP hosting are not claimed as implemented. Vercel project creation does not automatically connect a Git repository or deploy source code.
+The dashboard executes real GitHub repository, Vercel project, Supabase project and Neon project listing, creation and typed-confirmation deletion requests when credentials and permissions are configured. It does not pretend unsupported operations succeeded. Cloudflare and Render write operations, resource editing, full billing/usage aggregation, and remote MCP hosting are not claimed as implemented. Vercel project creation does not automatically connect a Git repository or deploy source code.
